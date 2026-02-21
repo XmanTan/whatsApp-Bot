@@ -1,0 +1,19 @@
+# ==============================
+# Environment variables
+# ==============================
+.env
+google-credentials.json
+node_modules/
+
+# ==============================
+# WhatsApp session data
+# ==============================
+.session/
+.wwebjs_auth/
+.wwebjs_cache/
+
+# ==============================
+# temp Images
+# ==============================
+.png
+.jpeg
