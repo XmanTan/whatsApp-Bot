@@ -43,9 +43,6 @@ client.on("message", async message => {
     if (!media.mimetype.startsWith("image")) return;
 
     const buffer = Buffer.from(media.data, "base64");
-    const fileName = `image_${Date.now()}.jpg`;
-    const imagePath = path.join(__dirname, fileName);
-    fs.writeFileSync(imagePath, buffer);
 
     // Store image temporarily in memory list
     if (!global.imageBuffer) global.imageBuffer = [];
