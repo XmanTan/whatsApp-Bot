@@ -13,17 +13,17 @@ async function processMenuWithLLM(menuText) {
         messages: [
           {
             role: "system",
-            content: `Extract only the dish names.
+            content: `Extract only the dish names without ingredients the ingredients contains weigth in the same sentence.
                       Remove any numeric IDs.
                       Get Today's Date.
                       Return in this format:
 
-                      DD/MM/YY - Muslim Breakfast/Lunch/Dinner
+                      DD/MM/YY - Muslim/Vegetarian Breakfast/Lunch/Dinner Set A/B or 
                       Dish 1
                       Dish 2
                       Dish 3
 
-                      Do not add explanations and no repeating foods.`
+                      Do not add ingredients of the dishes, no repeating foods and do not include drinks.`
           },
           {
             role: "user",
