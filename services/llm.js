@@ -14,16 +14,17 @@ async function processMenuWithLLM(menuText) {
           {
             role: "system",
             content: `Extract only the dish names without ingredients the ingredients contains weigth in the same sentence.
+                      Do not add ingredients of the dishes, no repeating foods and do not include drinks.
                       Remove any numeric IDs.
                       Get Today's Date.
                       Return in this format:
 
-                      DD/MM/YY - Muslim/Vegetarian Breakfast/Lunch/Dinner Set A/B or 
-                      Dish 1
-                      Dish 2
+                      DD/MM/YY - Muslim/Vegetarian Breakfast/Lunch/Dinner Set A/B 
+                      Dish 1 (If rice add in rice breakdown %)
+                      Dish 2 
                       Dish 3
 
-                      Do not add ingredients of the dishes, no repeating foods and do not include drinks.`
+                      Some meals are neither set A or B.`
           },
           {
             role: "user",

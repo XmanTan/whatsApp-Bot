@@ -1,18 +1,19 @@
-require("dotenv").config();
-const axios = require("axios");
+const TelegramBot = require("node-telegram-bot-api");
+const bot = new TelegramBot(process.env.TELEGRAM_BOT_TOKEN);
 
-async function sendToTelegram(text) {
-  try {
-    const url = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendMessage`;
+async function sendToTelegram(text, imageBuffer) {
+  const chatId = process.env.TELEGRAM_CHAT_ID;
 
-    await axios.post(url, {
-      chat_id: process.env.TELEGRAM_CHAT_ID,
-      text: text
-    });
-
-  } catch (error) {
-    console.error("Telegram Error:", error.response?.data || error.message);
+  if (!imageBuffer) {
+    // fallback: just text
+    await bot.sendMessage(chatId, text);
+    return;
   }
+
+  // Send photo with text as caption
+  await bot.sendPhoto(chatId, imageBuffer, {
+    caption: text
+  });
 }
 
 module.exports = { sendToTelegram };

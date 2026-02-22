@@ -42,11 +42,11 @@ client.on("message", async message => {
     const media = await message.downloadMedia();
     if (!media.mimetype.startsWith("image")) return;
 
-    const buffer = Buffer.from(media.data, "base64");
 
     // Store image temporarily in memory list
+    const buffer = Buffer.from(media.data, "base64");
     if (!global.imageBuffer) global.imageBuffer = [];
-    global.imageBuffer.push(imagePath);
+    global.imageBuffer.push(buffer);
 
     // Wait until 2 images received
     if (global.imageBuffer.length < 2) {
@@ -66,18 +66,17 @@ client.on("message", async message => {
     const foodImage = text1.length > text2.length ? img2 : img1;
     const menuText = text1.length > text2.length ? text1 : text2;
 
-    console.log("Menu Image:", menuImage);
-    console.log("Food Image:", foodImage);
     message.reply(menuText);
 
     // Send menu text to LLM
     const processedMenu = await processMenuWithLLM(menuText);
 
-    await message.reply("Menu detected and processed:");
-    await message.reply(processedMenu);
+    // Debugging
+    // await message.reply("Menu detected and processed:");
+    // await message.reply(processedMenu);
 
     // Send Menu to telegram
-    sendToTelegram(processedMenu);
+    await sendToTelegram(processedMenu, foodImage);
 
     // Reset buffer
     global.imageBuffer = [];
